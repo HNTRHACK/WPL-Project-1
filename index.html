@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HydroTrack – Smart Water Usage Monitor. Track your daily water consumption and improve efficiency." />
+  <title>HydroTrack – Smart Water Usage Monitor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body style="padding-top:var(--nav-height);">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Hydro<span>Track</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="tracker.html">Track</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero-section fade-in">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <h1>Track, Save,<br>Level Up&nbsp; <span class="highlight">Your<br>Water Usage</span></h1>
+        <p>Turn mindless consumption into awareness with our gamified tracking platform. Smart insights for students & households.</p>
+        <div class="hero-buttons">
+          <a href="login.html" class="btn btn-primary" id="start-btn">Start Tracking Now</a>
+          <a href="#features" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-card fade-in fade-in-delay">
+        <div class="hero-card-header">
+          <div class="hero-card-avatar">💧</div>
+          <div>
+            <p>HydroTrack Score</p>
+            <p>Updated daily</p>
+          </div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat">
+            <span class="stat-value">85</span>
+            <span class="stat-label">Avg Score</span>
+          </div>
+          <div class="hero-stat">
+            <span class="stat-value">120L</span>
+            <span class="stat-label">Saved</span>
+          </div>
+        </div>
+        <div class="hero-badge">🌊 Trusted by 1,000+ users</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="concept-section fade-in" id="features">
+    <div class="concept-section-header">
+      <h2>Smart Water <span class="accent">Management</span></h2>
+      <p>Our platform provides intuitive tools, offering actionable insights using engaging, gamified tracking for students & households.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><span>📊</span></div>
+        <h3>Smart Tracking</h3>
+        <p>Log your consumption across drinking, bathing, and washing categories with an intuitive interface.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><span>🏆</span></div>
+        <h3>Achievement System</h3>
+        <p>Earn efficiency scores and progress badges as you optimise your daily water usage habits.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><span>👥</span></div>
+        <h3>Community Insights</h3>
+        <p>Compare your usage with average households and see where you stand in conservation efforts.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><span>📈</span></div>
+        <h3>Progress Reports</h3>
+        <p>Detailed breakdowns with personalised tips to continuously improve your water efficiency score.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPLORE TOOLS ===== -->
+  <section class="concept-section fade-in">
+    <div class="concept-section-header">
+      <h2>Explore <span class="accent">Tools</span></h2>
+      <p>Discover interactive features built to track, analyse, and improve your water consumption patterns & everyday habits.</p>
+    </div>
+    <div class="tools-grid">
+      <a href="tracker.html" class="tool-card">
+        <div class="tool-card-img tc-blue">🚿</div>
+        <div class="tool-card-body">
+          <h3><span class="dot dot-blue"></span> Daily Tracker</h3>
+          <p>Log your drinking, bathing, and washing water usage every day.</p>
+        </div>
+      </a>
+      <a href="result.html" class="tool-card">
+        <div class="tool-card-img tc-purple">📊</div>
+        <div class="tool-card-body">
+          <h3><span class="dot dot-purple"></span> Usage Analysis</h3>
+          <p>View your efficiency score and detailed breakdown of water spend.</p>
+        </div>
+      </a>
+      <a href="feedback.html" class="tool-card">
+        <div class="tool-card-img tc-green">💬</div>
+        <div class="tool-card-body">
+          <h3><span class="dot dot-green"></span> Community Tips</h3>
+          <p>Share your experiences, submit feedback, and learn from others.</p>
+        </div>
+      </a>
+      <div class="tool-card">
+        <div class="tool-card-img tc-orange">🔧</div>
+        <div class="tool-card-body">
+          <h3><span class="dot dot-orange"></span> Leak Detector</h3>
+          <p>Discover hidden leaks in your plumbing with our usage pattern analysis.</p>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-card-img tc-pink">🌍</div>
+        <div class="tool-card-body">
+          <h3><span class="dot dot-pink"></span> Eco Goals</h3>
+          <p>Set personal water-saving goals and track your environmental impact.</p>
+        </div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-card-img tc-cyan">📑</div>
+        <div class="tool-card-body">
+          <h3><span class="dot dot-cyan"></span> Water Reports</h3>
+          <p>Generate detailed reports of your weekly and monthly water usage patterns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROGRESS SECTION ===== -->
+  <section class="progress-section fade-in">
+    <div class="progress-inner">
+      <div class="concept-section-header">
+        <h2>Track Your <span class="accent">Progress</span></h2>
+        <p>Our gamified approach makes water conservation engaging, helping users maintain streaks and earn efficiency badges.</p>
+      </div>
+      <div class="progress-grid">
+        <div class="progress-avatars">
+          <div class="progress-avatar-card">
+            <span class="avatar-emoji">💧</span>
+            <span class="avatar-label">Drinking</span>
+          </div>
+          <div class="progress-avatar-card">
+            <span class="avatar-emoji">🛁</span>
+            <span class="avatar-label">Bathing</span>
+          </div>
+          <div class="progress-avatar-card">
+            <span class="avatar-emoji">🧺</span>
+            <span class="avatar-label">Washing</span>
+          </div>
+          <div class="progress-avatar-card">
+            <span class="avatar-emoji">🌱</span>
+            <span class="avatar-label">Garden</span>
+          </div>
+          <div class="progress-avatar-card">
+            <span class="avatar-emoji">🍳</span>
+            <span class="avatar-label">Kitchen</span>
+          </div>
+          <div class="progress-avatar-card">
+            <span class="avatar-emoji">🔧</span>
+            <span class="avatar-label">Leaks</span>
+          </div>
+        </div>
+        <div class="progress-stats-card">
+          <h3>Your Progress</h3>
+          <div class="stat-bar">
+            <div class="stat-bar-header">
+              <span>Efficiency</span>
+              <span>85%</span>
+            </div>
+            <div class="stat-bar-track">
+              <div class="stat-bar-fill" style="width:85%;"></div>
+            </div>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-bar-header">
+              <span>🏅 Achievement Badges</span>
+              <span>6/10</span>
+            </div>
+            <div class="stat-bar-track">
+              <div class="stat-bar-fill green" style="width:60%;"></div>
+            </div>
+          </div>
+          <div class="stat-bar">
+            <div class="stat-bar-header">
+              <span>Daily Streak</span>
+              <span>12 days</span>
+            </div>
+            <div class="stat-bar-track">
+              <div class="stat-bar-fill orange" style="width:40%;"></div>
+            </div>
+          </div>
+          <div class="mini-stats">
+            <div class="mini-stat">
+              <div class="ms-icon">💧</div>
+              <span class="ms-value">14,850</span>
+              <span class="ms-label">Litres Tracked</span>
+            </div>
+            <div class="mini-stat">
+              <div class="ms-icon">🔥</div>
+              <span class="ms-value">7 days</span>
+              <span class="ms-label">Best Streak</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="concept-section fade-in">
+    <div class="concept-section-header">
+      <h2>User <span class="accent">Success Stories</span></h2>
+      <p>See how our powerful water tracking platform has transformed daily conservation practices for students and families.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <span class="quote-icon">❝</span>
+        <p>"I used to waste so much water while brushing my teeth. HydroTrack made me aware and I've saved over 200 litres this month alone!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar ta-purple">R</div>
+          <div>
+            <div class="t-name">Ravi K.</div>
+            <div class="t-role">Student, Class 10</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-icon">❝</span>
+        <p>"The achievement system keeps my kids engaged. They actually compete to get the highest efficiency score every week. Brilliant idea!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar ta-blue">P</div>
+          <div>
+            <div class="t-name">Priya M.</div>
+            <div class="t-role">Homemaker, Mumbai</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <span class="quote-icon">❝</span>
+        <p>"Tracking my hostel water usage with HydroTrack was an eye-opener. I've reduced my daily consumption by almost 30%. Highly recommend!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar ta-green">A</div>
+          <div>
+            <div class="t-name">Aditya S.</div>
+            <div class="t-role">College Student</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cta-banner">
+      <a href="login.html" class="btn btn-purple">Start Tracking Now →</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Hydro<span>Track</span></div>
+        <p>Smart water usage monitoring for students and households. Track, save, and make every drop count.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="tracker.html">Tracker</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Water Tips</a></li>
+          <li><a href="#">Conservation Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">help@hydrotrack.in</a></li>
+          <li><a href="#">+91 12345 67890</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 HydroTrack. All rights reserved. No account needed · Data stays in your browser.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    var toggle = document.getElementById('nav-toggle');
+    var links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', function () {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+
+    // Scroll-triggered fade-in
+    (function () {
+      var els = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) return;
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(function (el) {
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+      });
+      // Always play hero immediately
+      var hero = document.querySelector('.hero-section');
+      if (hero) hero.style.animationPlayState = 'running';
+    })();
+  </script>
+</body>
+</html>

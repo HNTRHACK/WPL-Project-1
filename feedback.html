@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Share your feedback about HydroTrack." />
+  <title>Feedback – HydroTrack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Hydro<span>Track</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="tracker.html">Track</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="feedback.html" class="active">Feedback</a></li>
+    </ul>
+  </nav>
+
+  <!-- Feedback Form -->
+  <div class="card-centered fade-in">
+    <div class="card" style="max-width:480px;">
+      <div class="text-center">
+        <div class="card-icon">💬</div>
+        <h1>Feedback</h1>
+        <p class="subtitle">Help us improve HydroTrack with your thoughts.</p>
+      </div>
+
+      <div id="alert-success" class="alert alert-success">
+        ✅ Thank you for your feedback! We truly appreciate it.
+      </div>
+      <div id="alert-error" class="alert alert-error"></div>
+
+      <form id="feedback-form" onsubmit="return handleFeedback(event)">
+        <div class="form-group">
+          <label for="fb-name">Your Name</label>
+          <input type="text" id="fb-name" placeholder="Your name" readonly />
+        </div>
+
+        <div class="form-group">
+          <label for="fb-rating">Rating</label>
+          <select id="fb-rating">
+            <option value="">Select a rating</option>
+            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+            <option value="4">⭐⭐⭐⭐ Good</option>
+            <option value="3">⭐⭐⭐ Average</option>
+            <option value="2">⭐⭐ Below Average</option>
+            <option value="1">⭐ Poor</option>
+          </select>
+          <p class="error-msg" id="fb-rating-error">Please select a rating.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="fb-comment">Your Feedback</label>
+          <textarea id="fb-comment" placeholder="What did you like? What can we improve?"></textarea>
+          <p class="error-msg" id="fb-comment-error">Please enter your feedback.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="fb-submit-btn">
+          Submit Feedback
+        </button>
+      </form>
+
+      <div class="divider"></div>
+      <p class="text-center">
+        <a href="dashboard.html" class="link">← Back to Dashboard</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    var toggle = document.getElementById('nav-toggle');
+    var links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', function () {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+
+    (function () {
+      var user = localStorage.getItem('hydrotrack_user');
+      if (!user) { window.location.href = 'login.html'; return; }
+      document.getElementById('fb-name').value = user;
+    })();
+
+    function handleFeedback(e) {
+      e.preventDefault();
+      var valid = true;
+
+      var rating = document.getElementById('fb-rating');
+      var rErr   = document.getElementById('fb-rating-error');
+      rating.classList.remove('error');
+      rErr.classList.remove('show');
+      if (!rating.value) {
+        rating.classList.add('error');
+        rErr.classList.add('show');
+        valid = false;
+      }
+
+      var comment = document.getElementById('fb-comment');
+      var cErr    = document.getElementById('fb-comment-error');
+      comment.classList.remove('error');
+      cErr.classList.remove('show');
+      if (!comment.value.trim()) {
+        comment.classList.add('error');
+        cErr.classList.add('show');
+        valid = false;
+      }
+
+      if (!valid) return false;
+
+      document.getElementById('feedback-form').style.display = 'none';
+      document.getElementById('alert-success').classList.add('show');
+      return false;
+    }
+  </script>
+</body>
+</html>

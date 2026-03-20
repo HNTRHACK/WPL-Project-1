@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="View your water efficiency score and personalised tips." />
+  <title>Results – HydroTrack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Hydro<span>Track</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="tracker.html">Track</a></li>
+      <li><a href="result.html" class="active">Results</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+  </nav>
+
+  <!-- Result -->
+  <div class="card-centered fade-in">
+    <div class="card" style="max-width:480px;">
+      <div class="text-center">
+        <h1>Your Results</h1>
+        <p class="subtitle" style="margin-bottom:8px;">Here's how you did, <strong id="result-user">User</strong>.</p>
+      </div>
+
+      <!-- Score -->
+      <div class="score-container">
+        <div class="score-ring" id="score-ring">--</div>
+        <div class="result-badge" id="result-badge">Calculating…</div>
+        <p class="result-detail" id="result-msg"></p>
+      </div>
+
+      <!-- Tips -->
+      <div class="tips-box" id="tips-box">
+        <h3>💡 Tips to improve</h3>
+        <ul id="tips-list"></ul>
+      </div>
+
+      <div class="btn-group">
+        <a href="tracker.html" class="btn btn-primary btn-sm" id="retry-btn">Try Again</a>
+        <a href="dashboard.html" class="btn btn-outline btn-sm" id="dash-btn">Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    var toggle = document.getElementById('nav-toggle');
+    var links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', function () {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+
+    (function () {
+      var user  = localStorage.getItem('hydrotrack_user');
+      var score = localStorage.getItem('hydrotrack_score');
+
+      if (!user)          { window.location.href = 'login.html';   return; }
+      if (score === null)  { window.location.href = 'tracker.html'; return; }
+
+      var s = Number(score);
+      document.getElementById('result-user').textContent = user;
+      document.getElementById('score-ring').textContent  = s;
+
+      var ring  = document.getElementById('score-ring');
+      var badge = document.getElementById('result-badge');
+      var msg   = document.getElementById('result-msg');
+      var tips  = document.getElementById('tips-list');
+
+      if (s > 80) {
+        ring.classList.add('efficient');
+        badge.classList.add('efficient');
+        badge.textContent = '🌟 Efficient';
+        msg.textContent = 'Great job! Your water usage is very efficient. Keep it up!';
+        tips.innerHTML =
+          '<li>Continue your excellent water-saving habits.</li>' +
+          '<li>Consider rainwater harvesting for even more savings.</li>' +
+          '<li>Share your tips with friends and family.</li>';
+      } else if (s >= 50) {
+        ring.classList.add('moderate');
+        badge.classList.add('moderate');
+        badge.textContent = '⚡ Moderate';
+        msg.textContent = 'Not bad — small changes can make a big difference.';
+        tips.innerHTML =
+          '<li>Try shorter showers — 2 minutes less saves ~20 litres.</li>' +
+          '<li>Turn off the tap while brushing teeth.</li>' +
+          '<li>Use a bucket instead of a running hose for cleaning.</li>' +
+          '<li>Fix any dripping taps — they waste up to 15 litres a day.</li>';
+      } else {
+        ring.classList.add('wasteful');
+        badge.classList.add('wasteful');
+        badge.textContent = '⚠️ Wasteful';
+        msg.textContent = 'Your water usage is high. Let\'s work on reducing it.';
+        tips.innerHTML =
+          '<li>Limit showers to 5 minutes with a low-flow showerhead.</li>' +
+          '<li>Only run washing machines with full loads.</li>' +
+          '<li>Sweep driveways instead of hosing them down.</li>' +
+          '<li>Reuse rinse water for watering plants.</li>' +
+          '<li>Check for hidden leaks in your plumbing.</li>';
+      }
+    })();
+  </script>
+</body>
+</html>

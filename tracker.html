@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Log your daily water usage for drinking, bathing, and washing." />
+  <title>Water Tracker – HydroTrack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Hydro<span>Track</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="tracker.html" class="active">Track</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+  </nav>
+
+  <!-- Tracker Form -->
+  <div class="card-centered fade-in">
+    <div class="card" style="max-width:480px;">
+      <div class="text-center">
+        <div class="card-icon">🚿</div>
+        <h1>Water Tracker</h1>
+        <p class="subtitle">Enter your estimated daily water usage in litres.</p>
+      </div>
+
+      <div id="alert" class="alert alert-error"></div>
+
+      <form id="tracker-form" onsubmit="return handleTracker(event)">
+        <div class="form-group">
+          <label for="drinking">🥤 Drinking Water (litres)</label>
+          <input type="number" id="drinking" placeholder="e.g. 3" min="0" step="0.1" />
+          <p class="error-msg" id="drinking-error">Enter a valid number (≥ 0).</p>
+        </div>
+
+        <div class="form-group">
+          <label for="bathing">🛁 Bathing Water (litres)</label>
+          <input type="number" id="bathing" placeholder="e.g. 50" min="0" step="0.1" />
+          <p class="error-msg" id="bathing-error">Enter a valid number (≥ 0).</p>
+        </div>
+
+        <div class="form-group">
+          <label for="washing">🧺 Washing / Cleaning (litres)</label>
+          <input type="number" id="washing" placeholder="e.g. 20" min="0" step="0.1" />
+          <p class="error-msg" id="washing-error">Enter a valid number (≥ 0).</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="calc-btn">
+          Calculate Score →
+        </button>
+      </form>
+
+      <div class="divider"></div>
+      <p class="text-center">
+        <a href="dashboard.html" class="link">← Back to Dashboard</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    var toggle = document.getElementById('nav-toggle');
+    var links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', function () {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+
+    (function () {
+      if (!localStorage.getItem('hydrotrack_user')) {
+        window.location.href = 'login.html';
+      }
+    })();
+
+    function validate(id) {
+      var input = document.getElementById(id);
+      var err   = document.getElementById(id + '-error');
+      var val   = input.value.trim();
+
+      input.classList.remove('error');
+      err.classList.remove('show');
+
+      if (val === '' || isNaN(val) || Number(val) < 0) {
+        input.classList.add('error');
+        err.classList.add('show');
+        return null;
+      }
+      return Number(val);
+    }
+
+    function handleTracker(e) {
+      e.preventDefault();
+
+      var drinking = validate('drinking');
+      var bathing  = validate('bathing');
+      var washing  = validate('washing');
+
+      if (drinking === null || bathing === null || washing === null) return false;
+
+      var score = 100 - (drinking + bathing * 2 + washing * 3);
+      score = Math.round(Math.max(0, Math.min(100, score)));
+
+      localStorage.setItem('hydrotrack_score', score);
+      localStorage.setItem('hydrotrack_drinking', drinking);
+      localStorage.setItem('hydrotrack_bathing', bathing);
+      localStorage.setItem('hydrotrack_washing', washing);
+
+      window.location.href = 'result.html';
+      return false;
+    }
+  </script>
+</body>
+</html>

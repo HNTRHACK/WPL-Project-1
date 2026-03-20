@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="HydroTrack Dashboard – Navigate to water tracking, results, and feedback." />
+  <title>Dashboard – HydroTrack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">Hydro<span>Track</span></a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="dashboard.html" class="active">Dashboard</a></li>
+      <li><a href="tracker.html">Track</a></li>
+      <li><a href="result.html">Results</a></li>
+      <li><a href="feedback.html">Feedback</a></li>
+    </ul>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <section class="section fade-in">
+
+    <!-- Gradient Welcome Banner -->
+    <div class="dash-hero">
+      <p class="welcome-label">Welcome back,</p>
+      <p class="welcome-name" id="display-name">User</p>
+      <p class="subtitle">What would you like to do today?</p>
+    </div>
+
+    <!-- Action Cards -->
+    <div class="dash-grid fade-in fade-in-delay">
+      <a href="tracker.html" class="dash-card" id="nav-tracker">
+        <span class="card-emoji">🚿</span>
+        <strong>Track Water</strong>
+        <span class="card-label">Log daily usage</span>
+      </a>
+      <a href="result.html" class="dash-card" id="nav-result">
+        <span class="card-emoji">📊</span>
+        <strong>View Results</strong>
+        <span class="card-label">See your score</span>
+      </a>
+      <a href="feedback.html" class="dash-card" id="nav-feedback">
+        <span class="card-emoji">💬</span>
+        <strong>Feedback</strong>
+        <span class="card-label">Share your thoughts</span>
+      </a>
+    </div>
+
+    <div class="text-center" style="margin-top:40px;">
+      <a href="index.html" class="btn btn-ghost btn-sm" id="logout-btn" onclick="handleLogout()">
+        Sign Out
+      </a>
+    </div>
+  </section>
+
+  <script>
+    // Mobile nav toggle
+    var toggle = document.getElementById('nav-toggle');
+    var links  = document.getElementById('nav-links');
+    toggle.addEventListener('click', function () {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+
+    (function () {
+      var user = localStorage.getItem('hydrotrack_user');
+      if (!user) { window.location.href = 'login.html'; return; }
+      document.getElementById('display-name').textContent = user;
+    })();
+
+    function handleLogout() {
+      localStorage.removeItem('hydrotrack_user');
+      localStorage.removeItem('hydrotrack_score');
+    }
+  </script>
+</body>
+</html>
