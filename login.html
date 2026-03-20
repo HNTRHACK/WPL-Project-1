@@ -6,6 +6,92 @@
   <meta name="description" content="Login to HydroTrack to start tracking your water usage." />
   <title>Login – HydroTrack</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Validation-specific styles */
+    .validation-rules {
+      background: var(--purple-50);
+      border: 1px solid var(--purple-100);
+      border-radius: var(--radius-xs);
+      padding: 14px 16px;
+      margin-top: 8px;
+    }
+    .validation-rules p {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--grey-600);
+      margin-bottom: 6px;
+    }
+    .rule {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      color: var(--grey-400);
+      padding: 3px 0;
+      transition: var(--transition);
+    }
+    .rule .rule-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid var(--grey-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .rule.pass {
+      color: #15803d;
+    }
+    .rule.pass .rule-icon {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+    .rule.fail {
+      color: var(--red);
+    }
+    .rule.fail .rule-icon {
+      border-color: var(--red);
+      color: var(--red);
+    }
+    .password-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--grey-400);
+      padding: 4px;
+    }
+    .password-wrapper {
+      position: relative;
+    }
+    .strength-bar {
+      height: 4px;
+      background: var(--grey-200);
+      border-radius: 999px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .strength-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      width: 0%;
+      transition: width 0.4s ease, background 0.4s ease;
+    }
+    .strength-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-top: 4px;
+      text-align: right;
+    }
+  </style>
 </head>
 <body class="rain-page">
 
@@ -50,24 +136,80 @@
 
   <!-- Login Card -->
   <div class="card-centered fade-in">
-    <div class="card" style="backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(255,255,255,0.88); box-shadow:0 4px 32px rgba(0,0,0,0.08);">
+    <div class="card" style="backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(255,255,255,0.88); box-shadow:0 4px 32px rgba(0,0,0,0.08); max-width:460px;">
       <div class="text-center">
         <div class="card-icon">💧</div>
-        <h1>Welcome</h1>
-        <p class="subtitle">Enter your name to get started.</p>
+        <h1>Create Account</h1>
+        <p class="subtitle">Sign up to start tracking your water usage.</p>
       </div>
 
-      <div id="alert" class="alert alert-error"></div>
+      <div id="alert-success" class="alert alert-success">
+        ✅ Account created successfully! Redirecting…
+      </div>
+      <div id="alert-error" class="alert alert-error"></div>
 
-      <form id="login-form" onsubmit="return handleLogin(event)">
+      <form id="login-form" onsubmit="return handleLogin(event)" novalidate>
+
+        <!-- Name Field -->
         <div class="form-group">
-          <label for="username">Your Name</label>
-          <input type="text" id="username" placeholder="e.g. Hardik" autocomplete="name" />
-          <p class="error-msg" id="username-error">Please enter your name.</p>
+          <label for="username">Full Name</label>
+          <input type="text" id="username" placeholder="e.g. Hardik Sharma" autocomplete="name" />
+          <p class="error-msg" id="username-error">Name must be at least 3 characters.</p>
+        </div>
+
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="e.g. hardik@example.com" autocomplete="email" />
+          <p class="error-msg" id="email-error">Please enter a valid email address.</p>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-wrapper">
+            <input type="password" id="password" placeholder="Create a password" autocomplete="new-password" />
+            <button type="button" class="password-toggle" id="toggle-pw" onclick="togglePassword()">👁️</button>
+          </div>
+
+          <!-- Password Strength Bar -->
+          <div class="strength-bar">
+            <div class="strength-bar-fill" id="strength-fill"></div>
+          </div>
+          <div class="strength-label" id="strength-label"></div>
+
+          <!-- Live Validation Rules -->
+          <div class="validation-rules" id="pw-rules">
+            <p>Password must have:</p>
+            <div class="rule" id="rule-length">
+              <span class="rule-icon">✓</span>
+              <span>At least 6 characters</span>
+            </div>
+            <div class="rule" id="rule-upper">
+              <span class="rule-icon">✓</span>
+              <span>One uppercase letter (A–Z)</span>
+            </div>
+            <div class="rule" id="rule-lower">
+              <span class="rule-icon">✓</span>
+              <span>One lowercase letter (a–z)</span>
+            </div>
+            <div class="rule" id="rule-number">
+              <span class="rule-icon">✓</span>
+              <span>One number (0–9)</span>
+            </div>
+          </div>
+          <p class="error-msg" id="password-error">Password does not meet the requirements.</p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Re-enter your password" autocomplete="new-password" />
+          <p class="error-msg" id="confirm-error">Passwords do not match.</p>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block" id="login-btn">
-          Continue →
+          Create Account →
         </button>
       </form>
 
@@ -79,7 +221,7 @@
   </div>
 
   <script>
-    // Mobile nav toggle
+    // ===== Mobile nav toggle =====
     var toggle = document.getElementById('nav-toggle');
     var links  = document.getElementById('nav-links');
     toggle.addEventListener('click', function () {
@@ -87,30 +229,163 @@
       links.classList.toggle('open');
     });
 
-    // Prefill
-    (function () {
-      var saved = localStorage.getItem('hydrotrack_user');
-      if (saved) document.getElementById('username').value = saved;
-    })();
+    // ===== Toggle password visibility =====
+    function togglePassword() {
+      var pw = document.getElementById('password');
+      var btn = document.getElementById('toggle-pw');
+      if (pw.type === 'password') {
+        pw.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        pw.type = 'password';
+        btn.textContent = '👁️';
+      }
+    }
 
+    // ===== Live password validation =====
+    var passwordInput = document.getElementById('password');
+    passwordInput.addEventListener('input', function () {
+      var val = this.value;
+
+      // Check each rule
+      checkRule('rule-length', val.length >= 6);
+      checkRule('rule-upper',  /[A-Z]/.test(val));
+      checkRule('rule-lower',  /[a-z]/.test(val));
+      checkRule('rule-number', /[0-9]/.test(val));
+
+      // Update strength bar
+      updateStrength(val);
+    });
+
+    function checkRule(id, passed) {
+      var el = document.getElementById(id);
+      if (passed) {
+        el.classList.add('pass');
+        el.classList.remove('fail');
+      } else {
+        el.classList.remove('pass');
+        el.classList.remove('fail');
+      }
+    }
+
+    function updateStrength(val) {
+      var score = 0;
+      if (val.length >= 6)        score++;
+      if (/[A-Z]/.test(val))      score++;
+      if (/[a-z]/.test(val))      score++;
+      if (/[0-9]/.test(val))      score++;
+
+      var fill  = document.getElementById('strength-fill');
+      var label = document.getElementById('strength-label');
+
+      var widths  = ['0%', '25%', '50%', '75%', '100%'];
+      var colors  = ['', '#ef4444', '#f59e0b', '#3b82f6', '#22c55e'];
+      var labels  = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+      var lColors = ['', '#ef4444', '#f59e0b', '#3b82f6', '#15803d'];
+
+      fill.style.width      = widths[score];
+      fill.style.background = colors[score];
+      label.textContent     = val.length > 0 ? labels[score] : '';
+      label.style.color     = lColors[score];
+    }
+
+    // ===== Form submission with validation =====
     function handleLogin(e) {
       e.preventDefault();
-      var input  = document.getElementById('username');
-      var errMsg = document.getElementById('username-error');
-      var name   = input.value.trim();
+      var valid = true;
 
-      input.classList.remove('error');
-      errMsg.classList.remove('show');
+      // --- 1. Validate Name (min 3 chars, letters/spaces only) ---
+      var nameInput = document.getElementById('username');
+      var nameErr   = document.getElementById('username-error');
+      var name      = nameInput.value.trim();
 
-      if (!name) {
-        input.classList.add('error');
-        errMsg.classList.add('show');
-        input.focus();
-        return false;
+      nameInput.classList.remove('error');
+      nameErr.classList.remove('show');
+
+      if (name.length < 3) {
+        nameInput.classList.add('error');
+        nameErr.textContent = 'Name must be at least 3 characters.';
+        nameErr.classList.add('show');
+        valid = false;
+      } else if (!/^[a-zA-Z\s]+$/.test(name)) {
+        nameInput.classList.add('error');
+        nameErr.textContent = 'Name can only contain letters and spaces.';
+        nameErr.classList.add('show');
+        valid = false;
       }
 
-      localStorage.setItem('hydrotrack_user', name);
-      window.location.href = 'dashboard.html';
+      // --- 2. Validate Email (regex pattern check) ---
+      var emailInput = document.getElementById('email');
+      var emailErr   = document.getElementById('email-error');
+      var email      = emailInput.value.trim();
+      var emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+
+      emailInput.classList.remove('error');
+      emailErr.classList.remove('show');
+
+      if (!email) {
+        emailInput.classList.add('error');
+        emailErr.textContent = 'Email address is required.';
+        emailErr.classList.add('show');
+        valid = false;
+      } else if (!emailRegex.test(email)) {
+        emailInput.classList.add('error');
+        emailErr.textContent = 'Please enter a valid email (e.g. name@example.com).';
+        emailErr.classList.add('show');
+        valid = false;
+      }
+
+      // --- 3. Validate Password (4 rules) ---
+      var pwInput = document.getElementById('password');
+      var pwErr   = document.getElementById('password-error');
+      var pw      = pwInput.value;
+
+      pwInput.classList.remove('error');
+      pwErr.classList.remove('show');
+
+      var hasLength = pw.length >= 6;
+      var hasUpper  = /[A-Z]/.test(pw);
+      var hasLower  = /[a-z]/.test(pw);
+      var hasNumber = /[0-9]/.test(pw);
+
+      if (!hasLength || !hasUpper || !hasLower || !hasNumber) {
+        pwInput.classList.add('error');
+        // Mark failing rules in red
+        if (!hasLength) document.getElementById('rule-length').classList.add('fail');
+        if (!hasUpper)  document.getElementById('rule-upper').classList.add('fail');
+        if (!hasLower)  document.getElementById('rule-lower').classList.add('fail');
+        if (!hasNumber) document.getElementById('rule-number').classList.add('fail');
+        pwErr.classList.add('show');
+        valid = false;
+      }
+
+      // --- 4. Validate Confirm Password (must match) ---
+      var cpInput = document.getElementById('confirm-password');
+      var cpErr   = document.getElementById('confirm-error');
+
+      cpInput.classList.remove('error');
+      cpErr.classList.remove('show');
+
+      if (cpInput.value !== pw) {
+        cpInput.classList.add('error');
+        cpErr.classList.add('show');
+        valid = false;
+      }
+
+      // --- All passed → Save & redirect ---
+      if (valid) {
+        localStorage.setItem('hydrotrack_user', name);
+        localStorage.setItem('hydrotrack_email', email);
+
+        // Show success alert
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('alert-success').classList.add('show');
+
+        setTimeout(function () {
+          window.location.href = 'dashboard.html';
+        }, 1200);
+      }
+
       return false;
     }
   </script>
